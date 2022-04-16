@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "LwO5EB6dMMRqg8/D3pYUdkUOHi6DEAb7I7kd2urMWxAQRMGlVt4xUY0R3o9d/Y6VRlgFTCqVeTFvp8BxMzis7A==",
+  "success": true,
+  "projectFilePath": "/Users/onuryasar/projects/rise/Rise.Contact/Rise.Contact.API/Rise.Contact.API.csproj",
+  "expectedPackageFiles": [
+    "/Users/onuryasar/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/onuryasar/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/onuryasar/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/Users/onuryasar/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/Users/onuryasar/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/Users/onuryasar/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
