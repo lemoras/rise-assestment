@@ -4,16 +4,6 @@ using Rise.Contact.API.Utils;
 
 namespace Rise.Contact.API.Services
 {
-    public interface IContactService
-    {
-        ContactGetByIdResponse GetContact(Guid contactId);
-        List<ContactListResponse> GetContacts();
-        List<ContactListResponse> GetContacts(ContactFilterRequest filter);
-        ContactResponse CreateContact(ContactRequest req);
-        void UpdateContact(ContactUpdateRequest req);
-        void RemoveContact(Guid contactId);
-    }
-
     public class ContactService : IContactService
     {
         private readonly IApplicationContext _context;
@@ -27,13 +17,13 @@ namespace Rise.Contact.API.Services
 
         public ContactResponse CreateContact(ContactRequest req)
         {
-            if (string.IsNullOrEmpty(req.FirstName) || string.IsNullOrEmpty(req.LastName))
+            if (string.IsNullOrWhiteSpace(req.FirstName) || string.IsNullOrWhiteSpace(req.LastName))
             {
                 _context.AddReturnMessage("Ad ve soyad girilmelidir");
                 return default;
             }
 
-            if (string.IsNullOrEmpty(req.CompanyName))
+            if (string.IsNullOrWhiteSpace(req.CompanyName))
             {
                 _context.AddReturnMessage("Firma ismi girilmelidir");
                 return default;
@@ -56,14 +46,30 @@ namespace Rise.Contact.API.Services
 
         public ContactGetByIdResponse GetContact(Guid contactId)
         {
-            var contact = _dbContext.Contacts.SoftDelCondition().FirstOrDefault(x => x.Id == contactId);
-
-            if (contact == null)
-                return default;
-
-            return new ContactGetByIdResponse
-            {
-            };
+            return _dbContext.Contacts
+                .SoftDelCondition()
+                .GroupJoin(_dbContext.ContactInfos, x=> x.Id, y=> y.ContactId, (x,y)=> new { x, y})
+                .Where(x=> x.x.Id == contactId)
+                .Select(x=> new ContactGetByIdResponse 
+                {
+                    Id = x.x.Id,
+                    FirstName = x.x.FirstName,
+                    LastName = x.x.LastName,
+                    CompanyName = x.x.CompanyName,
+                    ContactInfoResponses = x.y.Select(z=> new ContactInfoResponse
+                    {
+                        Id = z.Id,
+                        ContactId =  z.ContactId,
+                        InfoType = z.InfoType,
+                        InfoContent = z.InfoContent,
+                        CreateBy = z.CreateBy,
+                        CreatedDate = z.CreatedDate,
+                        CreatedTime = z.CreatedTime,
+                        ModifiedDate = z.ModifiedDate,
+                        ModifiedTime = z.ModifiedTime,
+                        ModifyBy = z.ModifyBy
+                    })
+                }).FirstOrDefault();
         }
 
         public List<ContactListResponse> GetContacts()
@@ -115,13 +121,13 @@ namespace Rise.Contact.API.Services
 
         public void RemoveContact(Guid contactId)
         {
-            var order = _dbContext.Contacts.Where(x => x.Id == contactId).FirstOrDefault();
+            var contact = _dbContext.Contacts.Where(x => x.Id == contactId).FirstOrDefault();
 
-            if (order != null)
+            if (contact != null)
             {
-                order.DeleteBy = _context.UserId;
-                order.DeletedDate = SystemDateTime.NowDate();
-                order.DeletedTime = SystemDateTime.NowTime();
+                contact.DeleteBy = _context.UserId;
+                contact.DeletedDate = SystemDateTime.NowDate();
+                contact.DeletedTime = SystemDateTime.NowTime();
 
                 _dbContext.SaveChanges();
             }
@@ -129,12 +135,12 @@ namespace Rise.Contact.API.Services
 
         public void UpdateContact(ContactUpdateRequest req)
         {
-            if (string.IsNullOrEmpty(req.FirstName) || string.IsNullOrEmpty(req.LastName))
+            if (string.IsNullOrWhiteSpace(req.FirstName) || string.IsNullOrWhiteSpace(req.LastName))
             {
                 _context.AddReturnMessage("Ad ve soyad girilmelidir");
             }
 
-            if (string.IsNullOrEmpty(req.CompanyName))
+            if (string.IsNullOrWhiteSpace(req.CompanyName))
             {
                 _context.AddReturnMessage("Firma ismi girilmelidir");
             }
@@ -144,7 +150,7 @@ namespace Rise.Contact.API.Services
 
             if (contact != null)
             {
-                var contactInfo = _dbContext.contactInfos.FirstOrDefault(x => x.ContactId == contact.Id);
+                var contactInfo = _dbContext.ContactInfos.FirstOrDefault(x => x.ContactId == contact.Id);
 
                
             

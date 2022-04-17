@@ -10,9 +10,9 @@ namespace Rise.Contact.API.Controllers
     [EnableCors]
     [ApiController]
     [Route("api/[controller]")]
-    public class ContactController : BaseController<ContactController, IContactService>
+    public class ContactInfoController : BaseController<ContactInfoController, IContactService>
     {
-        public ContactController(ILogger<ContactController> logger,
+        public ContactInfoController(ILogger<ContactInfoController> logger,
             IContactService service, IApplicationContext context)
             : base (logger, service, context)
         {

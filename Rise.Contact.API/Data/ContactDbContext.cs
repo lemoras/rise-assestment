@@ -8,7 +8,7 @@ namespace Rise.Contact.API.Data
         : base(options) { }
 
         public DbSet<Rise.Contact.API.Entities.Contact> Contacts { get; set; }
-        public DbSet<Rise.Contact.API.Entities.ContactInfo> contactInfos { get; set; }
+        public DbSet<Rise.Contact.API.Entities.ContactInfo> ContactInfos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
