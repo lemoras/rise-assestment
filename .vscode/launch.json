@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Local",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Rise.Contact.API/bin/Debug/net6.0/Rise.Contact.API.dll",
+            "args": ["--launch-profile contact-local"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Local",
+                "HOSTING_ENVIRONMENT": "Local",
+                "ASPNETCORE_URLS": "http://localhost:5000/"
+            },
+            "port": 5000
+        },
+        {
+            "name": "Launch Development",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Rise.Contact.API/bin/Debug/net6.0/Rise.Contact.API.dll",
+            "args": ["--launch-profile contact-development"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "HOSTING_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:8080/"
+            },
+            "port": 8080
+        },
+        {
+            "name": "Launch Staging",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Rise.Contact.API/bin/debug/net6.0/Rise.Contact.API.dll",
+            "args": ["--launch-profile contact-stage"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Staging",
+                "HOSTING_ENVIRONMENT": "Staging",
+                "ASPNETCORE_URLS": "http://localhost:80/"
+            },
+            "port": 80
+        },
+        {
+            "name": "Launch Production",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "publish",
+            "program": "${workspaceFolder}/Rise.Contact.API/bin/debug/net6.0/publish/Rise.Contact.API.dll",
+            "args": ["--launch-profile contact-production"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Production",
+                "HOSTING_ENVIRONMENT": "Production",
+                "ASPNETCORE_URLS": "http://localhost:80/"
+            },
+            "port": 80
+        }
+    ]
+}
